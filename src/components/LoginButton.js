@@ -7,7 +7,7 @@ function LoginButton() {
     return (
 
         <div>
-            <Button variant="contained" color="success" onClick={() => loginWithRedirect()} className='p-8 mt-3'>
+            <Button variant="contained" color="success" onClick={() => loginWithRedirect()} className='p-8'>
                 Login or Signup
             </Button>
         </div>
