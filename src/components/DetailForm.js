@@ -12,7 +12,6 @@ function DetailForm() {
                 dob: document.getElementById('dob').value,
                 user: document.getElementById('username').value
             })
-
         } catch (error) {
             console.log(error)
         }
