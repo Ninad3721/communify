@@ -39,8 +39,6 @@ app.post("/details", cors(), (req, res) => {
         User.dob = req.body.dob,
         User.save()
     res.status(200)
-
-
 })
 
 app.get("/details", (req, res) => {
