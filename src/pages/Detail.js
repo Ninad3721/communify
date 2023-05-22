@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import UnAuthorized from './UnAuthorized'
+import DetailForm from '../components/DetailForm'
 
 function Detail() {
     const { isAuthorized } = useAuth0()
@@ -7,7 +8,7 @@ function Detail() {
     return (
         <div>
             {(!isAuthorized) ? <UnAuthorized />
-                : <div></div>}
+                : <div><DetailForm /></div>}
         </div>
     )
 }

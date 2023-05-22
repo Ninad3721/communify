@@ -1,14 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-import Landing from './pages/Landing';
-import DetailForm from './components/DetailForm';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Landing from './pages/Landing'
+import Detail from './pages/Detail'
+import UnAuthorized from './pages/UnAuthorized'
 
 function App() {
 
   return (
     <>
-      <DetailForm />
-      <Landing />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/Detail" element={<Detail />} />
+        <Route path="/UnAuthorized" element={<UnAuthorized></UnAuthorized>} />
+      </Routes>
     </>
   );
 }
