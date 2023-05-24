@@ -5,7 +5,7 @@ function UnAuthorized() {
 
         <div className='bg-slate-800 h-screen '>
             <div className='flex justify-center p-10'>
-                <iframe src="https://giphy.com/embed/Yycc82XEuWDaLLi2GV" width="480" height="400" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                <iframe src="https://giphy.com/embed/Yycc82XEuWDaLLi2GV" width="480" height="400" class="giphy-embed" allowFullScreen></iframe>
                 <p><a href="https://giphy.com/gifs/theoffice-the-office-episode-24-tv-Yycc82XEuWDaLLi2GV"></a></p>
             </div>
 

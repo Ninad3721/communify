@@ -7,8 +7,7 @@ function Detail() {
     console.log(isAuthorized)
     return (
         <div>
-            {(!isAuthorized) ? <UnAuthorized />
-                : <div><DetailForm /></div>}
+            <DetailForm />
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Detail from './pages/Detail'
 import UnAuthorized from './pages/UnAuthorized'
+import Home from './pages/Home';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/Detail" element={<Detail />} />
         <Route path="/UnAuthorized" element={<UnAuthorized></UnAuthorized>} />
+        <Route path="/Home" element={<Home />} />
       </Routes>
     </>
   );
