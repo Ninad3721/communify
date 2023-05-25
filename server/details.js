@@ -6,6 +6,7 @@ const cors = require('cors')
 const userModel = require("./model/user_detail")
 const bodyParser = require('body-parser')
 const multer = require('multer')
+const { User } = require("@auth0/auth0-react")
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -54,10 +55,15 @@ app.post("/details", cors(), (req, res) => {
         User.dob = req.body.dob,
         User.save().then(() => { console.log("Success") }).catch((error) => {
             console.log(error)
-        })
+        })  
     res.status(200)
 })
 
+app.get("/Home", (req,res)=>
+{
+    User.find({username})
+}
+)
 app.get("/details", (req, res) => {
     res.send("Hello")
 })
