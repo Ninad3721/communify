@@ -55,13 +55,12 @@ app.post("/details", cors(), (req, res) => {
         User.dob = req.body.dob,
         User.save().then(() => { console.log("Success") }).catch((error) => {
             console.log(error)
-        })  
+        })
     res.status(200)
 })
 
-app.get("/Home", (req,res)=>
-{
-    User.find({username})
+app.get("/Home", (req, res) => {
+    res.send("Hello")
 }
 )
 app.get("/details", (req, res) => {
