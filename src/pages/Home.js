@@ -8,15 +8,20 @@ function Home() {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         axios.get("http://localhost:5000/Home").then((response) => {
-            console.log(response.data)
-            // setLoading(false)
+            console.log(response)
+            setLoading(false)
         }).catch((error) => {
             console.log(error)
         })
     }, [])
     return (
         <>
-            {loading ? <HomeSkeleton /> : <p>Not Loading</p>}
+            {loading ? <HomeSkeleton /> :
+                <div className='flex'>
+                    <Navbar />
+                </div>
+
+            }
         </>
 
 
