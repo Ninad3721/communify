@@ -15,6 +15,7 @@ function Navbar() {
                 backgroundColor: 'black',
                 opacity: 0.8,
             }}
+
         >
             {/* Box content goes here */}
             <div>
