@@ -2,6 +2,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
+import { PeopleCommunity } from "@styled-icons/fluentui-system-filled/PeopleCommunity"
+import { ChatMultiple } from "@styled-icons/fluentui-system-filled/ChatMultiple"
+import { Home } from "@styled-icons/entypo/Home"
+import { Settings } from '@styled-icons/fluentui-system-filled/Settings';
 
 function Navbar() {
     const [activeItem, setActiveItem] = useState("Home");
@@ -18,21 +22,24 @@ function Navbar() {
 
         >
             {/* Box content goes here */}
-            <div>
+            <div className="text-center">
                 <Avatar
                     alt="Remy Sharp"
                     src="/static/images/avatar/1.jpg"
                     sx={{ width: 56, height: 56 }}
                 />
-                <div>
+                <div className="text-white text-center grid-rows-3">
                     <a>UserName</a>
                     <a>First Name-last Name</a>
                 </div>
             </div>
-            <a>Groups</a>
-            <a>Private Chats</a>
-            <a>Home</a>
-            <a>Settings</a>
+            <div className="grid text-white text-center">
+                <a><PeopleCommunity className="h-8" />Groups</a>
+                <a><ChatMultiple className="h-8" />Private Chats</a>
+                <a><Home className="h-8" />Home</a>
+                <a><Settings className="h-8" />Settings</a>
+            </div>
+
             <a></a>
         </Box>
     );
