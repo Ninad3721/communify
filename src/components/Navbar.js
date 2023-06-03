@@ -22,26 +22,28 @@ function Navbar() {
 
         >
             {/* Box content goes here */}
-            <div className="text-center">
+            <div className="text-center flex">
                 <Avatar
+                    className="mt-2 ml-2"
                     alt="Remy Sharp"
                     src="/static/images/avatar/1.jpg"
                     sx={{ width: 56, height: 56 }}
                 />
-                <div className="text-white text-center grid-rows-3">
+                <div className="text-white text-left ml-2 grid-rows-3 font-bold text-sm mt-3">
                     <a>UserName</a>
+                    <br></br>
                     <a>First Name-last Name</a>
                 </div>
             </div>
-            <div className="grid text-white text-center">
-                <a><PeopleCommunity className="h-8" />Groups</a>
-                <a><ChatMultiple className="h-8" />Private Chats</a>
-                <a><Home className="h-8" />Home</a>
-                <a><Settings className="h-8" />Settings</a>
+            <div className="grid text-white text-left ml-3 gap-y-4 mt-4">
+                <a><PeopleCommunity className="h-8 mr-2" />Groups</a>
+                <a><ChatMultiple className="h-8 mr-2" />Private Chats</a>
+                <a><Home className="h-8 mr-2" />Home</a>
+                <a><Settings className="h-8 mr-2" />Settings</a>
             </div>
 
             <a></a>
-        </Box>
+        </Box >
     );
 }
 
