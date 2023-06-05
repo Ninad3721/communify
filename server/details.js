@@ -49,11 +49,17 @@ app.post("/details", cors(), (req, res) => {
     res.send("Success")
     var User = new userModel()
     console.log(req.body)
-    User.avatar.data = req.file.filename,
-        User.avatar.contentType = 'image/png',
-        User.username = req.body.user,
+    // User.avatar.data = req.file.filename,
+    //     User.avatar.contentType = 'image/png',
+    User.username = req.body.username,
+        User.firstName = req.body.firstname,
+        User.lastName = req.body.lastname,
+        User.age = req.body.age,
         User.dob = req.body.dob,
-        User.save().then(() => { console.log("Success") }).catch((error) => {
+        User.save().then(() => {
+            console.log("Success")
+
+        }).catch((error) => {
             console.log(error)
         })
     res.status(200)

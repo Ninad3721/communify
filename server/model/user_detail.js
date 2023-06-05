@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
-    avatar:
-    {
-        data: Buffer,
-        contentType: String,
+    // avatar:
+    // {
+    //     data: Buffer,
+    //     contentType: String,
 
-    },
+    // },
     dob:
     {
         type: Date,
