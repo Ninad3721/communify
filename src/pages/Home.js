@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import HomeSkeleton from '../components/Skeletons/pages/HomeSkeleton'
+import Navbar2 from '../components/Navbar2'
 
 function Home() {
     const [loading, setLoading] = useState(true)
@@ -18,7 +19,7 @@ function Home() {
         <>
             {loading ? <HomeSkeleton /> :
                 <div className='flex'>
-                    <Navbar />
+                    <Navbar2 />
                 </div>
 
             }

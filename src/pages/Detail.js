@@ -14,7 +14,7 @@ function Detail() {
     return (
         <div>
             {loading ? <DetailSkeleton /> : <DetailForm />}
-
+            
         </div>
     )
 }
