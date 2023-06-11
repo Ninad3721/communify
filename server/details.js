@@ -1,13 +1,13 @@
-const express = require("express")
-const app = express()
+import express from "express"
+export const app = express()
 const port = 5000
-const mongoose = require('mongoose')
-const cors = require('cors')
-const userModel = require("./model/user_detail")
-const bodyParser = require('body-parser')
-const multer = require('multer')
-const { User } = require("@auth0/auth0-react")
-
+import mongoose from 'mongoose'
+import cors from 'cors'
+import { userModel } from "./model/user_detail.js"
+import bodyParser from 'body-parser'
+import multer from 'multer'
+import User from "@auth0/auth0-react"
+import http from "http"
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
@@ -22,6 +22,7 @@ const connection_config = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }
+const server = http.createServer(app);
 
 const Storage = multer.diskStorage({
     destination: 'upload',
