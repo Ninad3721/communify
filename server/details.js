@@ -8,6 +8,7 @@ import bodyParser from 'body-parser'
 import multer from 'multer'
 import User from "@auth0/auth0-react"
 import http from "http"
+import { error } from "console"
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
@@ -22,7 +23,7 @@ const connection_config = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }
-const server = http.createServer(app);
+export const server = http.createServer(app);
 
 const Storage = multer.diskStorage({
     destination: 'upload',
@@ -45,7 +46,31 @@ db.once('open', function () {
     console.log('Connected to MongoDB Atlas!');
 });
 
+app.post("/", (req, res) => {
 
+})
+
+app.post("/signup", (req, res) => {
+    //Signup using email and password
+    //If user is already present then dont add to db and giev warning
+
+    var User = new userModel();
+    try {
+        User.email = req.body.email
+        User.password = req.body.password
+        console.log(req.body)
+        console.log(req.body.password)
+        User.save().then(() => {
+            console.log("success email password")
+        }).catch(error)
+        {
+            console.log(error)
+        }
+    } catch (error) {
+        res.send(error)
+        console.log(error)
+    }
+})
 app.post("/details", cors(), (req, res) => {
     res.send("Success")
     var User = new userModel()

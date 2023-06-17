@@ -1,7 +1,18 @@
 // const http = require("http")
 // const express = require("express")
 // const cors = require("cors")
-// const socketIO = require("socket.io")
+import socketIO from "socket.io"
+import server from "./details.js"
+import cors from 'cors'
+
+const io = socketIO(server, {
+    cors: {
+      origin: "*",
+    },
+   });
+
+
+
 
 
 

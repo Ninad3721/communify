@@ -1,11 +1,25 @@
 import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
+
+    },
+    password:
+    {
+        type: String,
+        required: true,
+        trim: true,
+    },
     username: {
         type: String,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
+        default: "Unkown"
     },
     // avatar:
     // {
@@ -41,4 +55,3 @@ const userSchema = new mongoose.Schema({
 
 export const userModel = mongoose.model("user_detail", userSchema)
 
-// module.exports = userModel
