@@ -50,7 +50,7 @@ app.post("/", (req, res) => {
 
 })
 
-app.post("/signup", (req, res) => {
+app.post("/Signup", (req, res) => {
     //Signup using email and password
     //If user is already present then dont add to db and giev warning
 

@@ -1,72 +1,85 @@
-import { TextField, InputAdornment, Icon, IconButton } from "@mui/material";
+import Button from '@mui/material/Button';
+import { useState } from 'react'
+import axios from 'axios'
+import TextField from '@mui/material/TextField';
+import technologist from '../images/apple_technologist.png';
+import postbox from "../images/apple_postbox.png"
+import oldkey from "../images/apple-old-key.png"
+import background from "../images/login-background.png"
+
 
 const Landing = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const handelSubmit = () => {
+        axios.post("http://localhost:5000/Signup",
+            {
+                email: email,
+                password: password,
+
+            })
+    }
     return (
-        <div className="relative rounded-xl bg-white w-full h-[882px] overflow-hidden text-left text-5xl text-black font-inter">
-            <TextField
-                className="[border:none] bg-[transparent] absolute top-[342px] left-[373px]"
-                sx={{ width: 310 }}
-                color="primary"
-                variant="filled"
-                type="text"
-                name="Email"
-                label="Email"
-                placeholder="Email"
-                size="medium"
-                margin="none"
-            />
-            <TextField
-                className="[border:none] bg-[transparent] absolute top-[446px] left-[373px]"
-                sx={{ width: 310 }}
-                color="primary"
-                variant="filled"
-                type="text"
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton aria-label="toggle password visibility">
-                                <Icon>visibility</Icon>
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}
-                name="Password"
-                label="Password"
-                placeholder="Password"
-                size="medium"
-                margin="none"
-            />
-            <div className="absolute top-[302px] left-[410px] font-light inline-block w-[318px] h-7">
-                Email
-            </div>
-            <img
-                className="absolute top-[303px] left-[380px] w-[30px] h-[29px] object-cover"
-                alt="mail box"
-                src="/image-14@2x.png"
-            />
-            <h4 className="m-0 absolute top-[405px] left-[415px]" />
-            <img
-                className="absolute top-[405px] left-[380px] w-[30px] h-[30px] object-cover"
-                alt="Key"
-                src="/image-13@2x.png"
-            />
-            <a className="[text-decoration:none] absolute top-[529px] left-[436px] font-light text-[inherit] inline-block w-[265px] h-[51px]">
-                or Sign Up !!!!!!
-            </a>
-            <h2 className="m-0 absolute top-[204px] left-[380px] text-[48px] font-normal font-motley-forces text-mediumspringgreen inline-block w-[341px] h-[73px] mix-blend-multiply">
-                Communify
-            </h2>
-            <img
-                className="absolute top-[209px] left-[625px] w-9 h-[41px] object-cover"
-                alt="technologist"
-                src="/image-15@2x.png"
-            />
-            <img
-                className="absolute top-[0px] left-[0px] w-[1224px] h-[938px] object-cover opacity-[0.1]"
-                alt="background"
-                src="/emojiffffff960x5402x-1@2x.png"
-            />
-        </div>
+        <>
+            <div className="absolute left-52 rounded-xl bg-white w-[1024px] h-[720px] overflow-hidden text-left text-5xl text-black font-inter" >
+                <TextField
+                    className="[border:none] bg-[transparent] absolute top-[342px] left-[373px]"
+                    sx={{ width: 310 }}
+                    color="primary"
+                    variant="filled"
+                    type="text"
+                    name="Email"
+                    placeholder="gavinbelson@hooli.com"
+                    size="medium"
+                    margin="none"
+                    onChange={(event) => { setEmail(event.target.value) }}
+                />
+                <TextField
+                    className="[border:none] bg-[transparent] absolute top-[460px] left-[60px]"
+                    sx={{ width: 310 }}
+                    color="primary"
+                    variant="filled"
+                    type="password"
+                    name="Password"
+                    label="Password"
+                    placeholder="Password"
+                    size="medium"
+                    margin="none"
+                    onChange={(event) => { setPassword(event.target.value) }}
+                />
+                <div className="absolute top-[302px] left-[410px] font-light inline-block w-[318px] h-7 text-xl" >
+                    Email
+                </div>
+                <img
+                    className="absolute top-[303px] left-[380px] w-[30px] h-[29px] object-cover"
+                    alt="mail box"
+                    src={postbox}
+                />
+                <h4 className="m-0 absolute top-[405px] left-[415px]" />
+                <div className="absolute top-[415px] left-[410px] font-light inline-block w-[318px] h-7 text-xl" >
+                    Password
+                </div>
+                <img
+                    className="absolute top-[405px] left-[380px] w-[30px] h-[30px] object-cover"
+                    src={oldkey}
+                />
+                <a href="/Signup" className="[text-decoration:none] absolute top-[600px] left-[460px] font-light text-[inherit] inline-block w-[265px] h-[51px] text-xl text-blue-600 underline">
+                    or Sign Up !!!!!!
+                </a>
+                <h2 className="m-0 absolute top-[204px] left-[380px] text-[48px] font-normal font-motley-forces text-mediumspringgreen inline-block w-[341px] h-[73px] mix-blend-multiply " style={{
+                    fontFamily: "Motley Forces", color: "#00D88E"
+                }}>
+                    Communify
+                </h2>
+                <img
+                    className="absolute top-[209px] left-[625px] w-9 h-[41px] object-cover"
+                    src={technologist}
+                />
+
+                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit()}>Submit</Button>
+            </div >
+
+        </>
     );
 };
 
