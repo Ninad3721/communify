@@ -12,7 +12,7 @@ const Landing = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const handelSubmit = () => {
-        axios.post("http://localhost:5000/Signup",
+        axios.post("http://localhost:5000/",
             {
                 email: email,
                 password: password,
@@ -76,7 +76,7 @@ const Landing = () => {
                     src={technologist}
                 />
 
-                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit()}>Submit</Button>
+                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit}>Submit</Button>
             </div >
 
         </>

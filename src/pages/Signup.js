@@ -1,21 +1,33 @@
 import { TextField } from "@mui/material";
 import Button from '@mui/material/Button';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import technologist from '../images/apple_technologist.png';
 import postbox from "../images/apple_postbox.png"
 import oldkey from "../images/apple-old-key.png"
 import background from "../images/login-background.png"
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    useEffect(() => {
+
+    })
+    const navigate = useNavigate()
+    const [email, setEmail] = useState(" ")
+    const [password, setPassword] = useState(" ")
     const handelSubmit = () => {
+        console.log(email)
+        console.log(password)
+
         axios.post("http://localhost:5000/Signup",
             {
                 email: email,
                 password: password,
 
+            }).then(() => {
+                navigate("http://localhost:3000")
+            }).catch((error) => {
+                console.log(error)
             })
     }
     return (
@@ -31,9 +43,15 @@ function Signup() {
                     placeholder="gavinbelson@hooli.com"
                     size="medium"
                     margin="none"
-                    onChange={(event) => { setEmail(event.target.value) }}
+                    autoComplete="off"
+                    onChange={(event) => {
+                        setEmail(event.target.value)
+                    }}
                 />
                 <TextField
+                    onChange={(event) => {
+                        setPassword(event.target.value)
+                    }}
                     className="[border:none] bg-[transparent] absolute top-[460px] left-[60px]"
                     sx={{ width: 310 }}
                     color="primary"
@@ -44,7 +62,7 @@ function Signup() {
                     placeholder="Password"
                     size="medium"
                     margin="none"
-                    onChange={(event) => { setPassword(event.target.value) }}
+                    autoComplete="off"
                 />
                 <div className="absolute top-[302px] left-[410px] font-light inline-block w-[318px] h-7 text-xl" >
                     Email
@@ -75,7 +93,7 @@ function Signup() {
                     src={technologist}
                 />
 
-                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit()}>Submit</Button>
+                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit}>Submit</Button>
             </div >
         </>
     )

@@ -3,10 +3,9 @@ export const app = express()
 const port = 5000
 import mongoose from 'mongoose'
 import cors from 'cors'
-import { userModel } from "./model/user_detail.js"
+import userModel from "./model/user_detail.js"
 import bodyParser from 'body-parser'
 import multer from 'multer'
-import User from "@auth0/auth0-react"
 import http from "http"
 import { error } from "console"
 
@@ -46,7 +45,32 @@ db.once('open', function () {
     console.log('Connected to MongoDB Atlas!');
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
+
+    try {
+        // var User = new userModel();
+        // User.email = req.body.email;
+        const dbRow = await userModel.findOne({ email: req.body.email }, (err, user) => {
+            if (err) {
+                console.log(err)
+                return;
+            }
+            if (!user) {
+                res.json({ Error: "User not found please enter correct email" })
+                console.log("User not found")
+                return;
+            }
+            if (req.password !== dbRow.password) {
+                res.json({ Error: "Incorrect password" })
+                console.log("User not found")
+                return;
+            }
+        })
+
+
+    } catch (error) {
+        console.log(error)
+    }
 
 })
 
@@ -61,7 +85,7 @@ app.post("/Signup", (req, res) => {
         console.log(req.body)
         console.log(req.body.password)
         User.save().then(() => {
-            console.log("success email password")
+            res.status(200)
         }).catch(error)
         {
             console.log(error)
@@ -76,7 +100,7 @@ app.post("/details", cors(), (req, res) => {
     var User = new userModel()
     console.log(req.body)
     // User.avatar.data = req.file.filename,
-    //     User.avatar.contentType = 'image/png',
+    // User.avatar.contentType = 'image/png',
     User.username = req.body.username,
         User.firstName = req.body.firstname,
         User.lastName = req.body.lastname,

@@ -16,10 +16,8 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: true,
         trim: true,
-        unique: true,
-        default: "Unkown"
+        default: null
     },
     // avatar:
     // {
@@ -30,28 +28,26 @@ const userSchema = new mongoose.Schema({
     dob:
     {
         type: Date,
-        required: true,
+        default: null
+
     },
     firstName:
     {
         type: String,
-        required: true,
-        default: "Unknown"
+        default: null
     },
     lastName:
     {
         type: String,
-        required: true,
-        default: "Unknown"
+        default: null
     },
     age:
     {
         type: Number,
-        required: true,
-        default: 0
+        default: null
     },
 
 })
 
-export const userModel = mongoose.model("user_detail", userSchema)
+export default mongoose.model("user_detail", userSchema)
 
