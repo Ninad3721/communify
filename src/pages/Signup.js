@@ -15,17 +15,16 @@ function Signup() {
     const navigate = useNavigate()
     const [email, setEmail] = useState(" ")
     const [password, setPassword] = useState(" ")
-    const handelSubmit = () => {
+    const handelSubmit = async () => {
         console.log(email)
         console.log(password)
-
         axios.post("http://localhost:5000/Signup",
             {
                 email: email,
                 password: password,
 
             }).then(() => {
-                navigate("http://localhost:3000")
+                navigate("/")
             }).catch((error) => {
                 console.log(error)
             })

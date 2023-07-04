@@ -9,6 +9,7 @@ import background from "../images/login-background.png"
 
 
 const Landing = () => {
+    let resultMessage;
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const handelSubmit = () => {
@@ -17,10 +18,21 @@ const Landing = () => {
                 email: email,
                 password: password,
 
+            }).then((response) => {
+                console.log(response.data)
+                // if(response.data)
+                // {
+                //     resultMessage = response.result
+                // }
+            }).catch((error) => {
+                console.log(error)
             })
     }
     return (
         <>
+            {
+
+            }
             <div className="absolute left-52 rounded-xl bg-white w-[1024px] h-[720px] overflow-hidden text-left text-5xl text-black font-inter" >
                 <TextField
                     className="[border:none] bg-[transparent] absolute top-[342px] left-[373px]"

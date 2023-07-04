@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
     //     contentType: String,
 
     // },
+    jwt:
+    {
+        type: String,
+        required: true,
+    },
     dob:
     {
         type: Date,
@@ -49,5 +54,5 @@ const userSchema = new mongoose.Schema({
 
 })
 
-export default mongoose.model("user_detail", userSchema)
+export default mongoose.model("user_detail", userSchema);
 

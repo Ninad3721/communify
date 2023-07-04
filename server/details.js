@@ -1,6 +1,7 @@
 import express from "express"
 export const app = express()
 const port = 5000
+const JWTPASS = "nkjdnfohfhohdhwofjnffoh"
 import mongoose from 'mongoose'
 import cors from 'cors'
 import userModel from "./model/user_detail.js"
@@ -8,6 +9,8 @@ import bodyParser from 'body-parser'
 import multer from 'multer'
 import http from "http"
 import { error } from "console"
+import jwt from "jsonwebtoken"
+import 'dotenv/config'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
@@ -50,22 +53,20 @@ app.post("/", async (req, res) => {
     try {
         // var User = new userModel();
         // User.email = req.body.email;
-        const dbRow = await userModel.findOne({ email: req.body.email }, (err, user) => {
-            if (err) {
-                console.log(err)
-                return;
-            }
-            if (!user) {
-                res.json({ Error: "User not found please enter correct email" })
-                console.log("User not found")
-                return;
-            }
-            if (req.password !== dbRow.password) {
-                res.json({ Error: "Incorrect password" })
-                console.log("User not found")
-                return;
-            }
-        })
+        const dbRow = await userModel.findOne({ email: req.body.email }).exec()
+        if (!dbRow) {
+            res.json({ Error: "User not found please enter correct email" })
+            console.log("User not found")
+            return;
+        }
+        if (req.body.password === dbRow.password.toString()) {
+            res.json({ Result: "Correct password Logging in " })
+        }
+        else {
+            res.json({ Error: "Incorrect Password " })
+            console.log(dbRow.password + " " + req.body.password)
+            console.log("User not found")
+        }
 
 
     } catch (error) {
@@ -80,19 +81,19 @@ app.post("/Signup", (req, res) => {
 
     var User = new userModel();
     try {
+        const token = jwt.sign(req.body.email, JWTPASS)
         User.email = req.body.email
         User.password = req.body.password
-        console.log(req.body)
-        console.log(req.body.password)
+        User.jwt = token
         User.save().then(() => {
             res.status(200)
         }).catch(error)
         {
             console.log(error)
+
         }
     } catch (error) {
-        res.send(error)
-        console.log(error)
+        console.log("Error message " + error.message)
     }
 })
 app.post("/details", cors(), (req, res) => {
