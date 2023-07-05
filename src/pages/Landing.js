@@ -5,13 +5,15 @@ import TextField from '@mui/material/TextField';
 import technologist from '../images/apple_technologist.png';
 import postbox from "../images/apple_postbox.png"
 import oldkey from "../images/apple-old-key.png"
+import Alert from '@mui/material/Alert';
+import { Navigate, useNavigate } from "react-router-dom";
 import background from "../images/login-background.png"
 
-
 const Landing = () => {
-    let resultMessage;
+    const [resultMessage, setResultMessage] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [alertType, setAlertType] = useState("")
     const handelSubmit = () => {
         axios.post("http://localhost:5000/",
             {
@@ -20,10 +22,15 @@ const Landing = () => {
 
             }).then((response) => {
                 console.log(response.data)
-                // if(response.data)
-                // {
-                //     resultMessage = response.result
-                // }
+                if (response.data.Result) {
+                    setResultMessage(response.data.Result)
+                    setAlertType("success")
+                    window.location.href = "/Home";
+                }
+                else {
+                    setResultMessage(response.data.Error)
+                    setAlertType("error")
+                }
             }).catch((error) => {
                 console.log(error)
             })
@@ -31,7 +38,7 @@ const Landing = () => {
     return (
         <>
             {
-
+                <Alert severity={alertType}>{resultMessage}</Alert>
             }
             <div className="absolute left-52 rounded-xl bg-white w-[1024px] h-[720px] overflow-hidden text-left text-5xl text-black font-inter" >
                 <TextField

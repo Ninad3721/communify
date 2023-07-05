@@ -24,7 +24,7 @@ function Signup() {
                 password: password,
 
             }).then(() => {
-                navigate("/")
+                window.location.href = "/"
             }).catch((error) => {
                 console.log(error)
             })

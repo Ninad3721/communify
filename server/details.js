@@ -48,6 +48,28 @@ db.once('open', function () {
     console.log('Connected to MongoDB Atlas!');
 });
 
+const auth = (req, res, next) => {
+    console.log(req.headers['authorization'])
+    if (!req.headers.authorization) {
+        res.json({ Error: "No authorization header found" })
+        res.status(401)
+        return;
+    }
+
+    const authHeaders = req.headers.authorization;
+    jwt.verify(authHeaders, JWTPASS, (err, user) => {
+        if (err) {
+            res.json({ Error: "Unauthorized token" })
+            console.log("Unauthorized token")
+            return;
+        }
+        console.log(user)
+        console.log("Hola")
+    })
+    console.log("Success")
+    next()
+}
+
 app.post("/", async (req, res) => {
 
     try {
@@ -59,7 +81,8 @@ app.post("/", async (req, res) => {
             console.log("User not found")
             return;
         }
-        if (req.body.password === dbRow.password.toString()) {
+        if (req.body.password === dbRow.password) {
+            res.set('Authorization', 'Bearer ' + dbRow.jwt);
             res.json({ Result: "Correct password Logging in " })
         }
         else {
@@ -67,8 +90,6 @@ app.post("/", async (req, res) => {
             console.log(dbRow.password + " " + req.body.password)
             console.log("User not found")
         }
-
-
     } catch (error) {
         console.log(error)
     }
@@ -116,8 +137,8 @@ app.post("/details", cors(), (req, res) => {
     res.status(200)
 })
 
-app.get("/Home", (req, res) => {
-    res.send("Hello")
+app.get("/Home", auth, (req, res) => {
+
 }
 )
 app.get("/details", (req, res) => {
