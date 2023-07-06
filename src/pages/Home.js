@@ -18,7 +18,7 @@ function Home() {
     return (
         <>
             {loading ? <HomeSkeleton /> :
-                <div className='flex'>
+                <div className='flex ' style={{ backgroundColor: "#20232B" }}>
                     <Navbar2 />
                 </div>
 

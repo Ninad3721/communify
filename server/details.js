@@ -11,6 +11,8 @@ import http from "http"
 import { error } from "console"
 import jwt from "jsonwebtoken"
 import 'dotenv/config'
+import cookieParser from 'cookie-parser'
+import cookie from 'cookie'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
@@ -19,6 +21,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(cors())
+app.use(cookieParser())
 
 
 const connection_config = {
@@ -48,25 +51,34 @@ db.once('open', function () {
     console.log('Connected to MongoDB Atlas!');
 });
 
-const auth = (req, res, next) => {
-    console.log(req.headers['authorization'])
-    if (!req.headers.authorization) {
+const auth = async (req, res, next) => {
+    console.log(req.cookies)
+    if (!req.cookies.jwt) {
         res.json({ Error: "No authorization header found" })
         res.status(401)
         return;
     }
-
-    const authHeaders = req.headers.authorization;
-    jwt.verify(authHeaders, JWTPASS, (err, user) => {
+    jwt.verify(req.cookie.jwt, JWTPASS, (err, user) => {
         if (err) {
-            res.json({ Error: "Unauthorized token" })
-            console.log("Unauthorized token")
+            res.json({ Error: "No Token found" })
+            res.status(401)
             return;
         }
         console.log(user)
-        console.log("Hola")
+
     })
-    console.log("Success")
+
+    // const authHeaders = req.headers.authorization;
+    // jwt.verify(authHeaders, JWTPASS, (err, user) => {
+    //     if (err) {
+    //         res.json({ Error: "Unauthorized token" })
+    //         console.log("Unauthorized token")
+    //         return;
+    //     }
+    //     console.log(user)
+    //     console.log("Hola")
+    // })
+    // console.log("Success")
     next()
 }
 
@@ -82,7 +94,10 @@ app.post("/", async (req, res) => {
             return;
         }
         if (req.body.password === dbRow.password) {
-            res.set('Authorization', 'Bearer ' + dbRow.jwt);
+            // res.set('Authorization', 'Bearer ' + dbRow.jwt);
+            cookie.serialize("jwt", dbRow.jwt)
+            res.cookie('jwt', dbRow.jwt, { path: "/" })
+            //  res.cookie('jwt', "abcd")
             res.json({ Result: "Correct password Logging in " })
         }
         else {
