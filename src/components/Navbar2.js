@@ -7,8 +7,8 @@ import applePeople from "../images/apple-people.png"
 
 const Navbar2 = () => {
     return (
-        <div className="relative rounded-xl w-full h-[882px] overflow-hidden text-left text-mini text-white font-roboto" >
-            <div className="absolute top-[16px] left-[25px] rounded-xl bg-gray-200 w-56 h-[780px]" style={{ background: "#171717EB", }} />
+        <div className="relative rounded-xl w-full h-[745px] overflow-hidden text-left text-mini text-white font-roboto" >
+            <div className="absolute top-[16px] left-[25px] rounded-xl bg-gray-200 w-56 h-[720px]" style={{ background: "#171717EB", }} />
             <img
                 className="absolute top-[42px] left-[46px] rounded-[50px] w-[68px] h-[68px] object-cover"
                 alt="Avatar"

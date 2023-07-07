@@ -58,7 +58,8 @@ const auth = async (req, res, next) => {
         res.status(401)
         return;
     }
-    jwt.verify(req.cookie.jwt, JWTPASS, (err, user) => {
+
+    jwt.verify(req.cookies.jwt, JWTPASS, (err, user) => {
         if (err) {
             res.json({ Error: "No Token found" })
             res.status(401)
@@ -99,6 +100,8 @@ app.post("/", async (req, res) => {
             res.cookie('jwt', dbRow.jwt, { path: "/" })
             //  res.cookie('jwt', "abcd")
             res.json({ Result: "Correct password Logging in " })
+            // res.redirect('https://google.com')
+
         }
         else {
             res.json({ Error: "Incorrect Password " })
