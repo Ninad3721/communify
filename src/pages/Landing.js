@@ -6,6 +6,7 @@ import technologist from '../images/apple_technologist.png';
 import postbox from "../images/apple_postbox.png"
 import oldkey from "../images/apple-old-key.png"
 import Alert from '@mui/material/Alert';
+import { redirect } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 import background from "../images/login-background.png"
 
@@ -25,7 +26,9 @@ const Landing = () => {
                 if (response.data.Result) {
                     setResultMessage(response.data.Result)
                     setAlertType("success")
-                    window.location.href = "/Home";
+                    // redirect("http://localhost:5000/Home")
+                    axios.get("http://localhost:5000/Home")
+                    // window.location.href = "/Home";
                 }
                 else {
                     setResultMessage(response.data.Error)

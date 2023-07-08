@@ -13,7 +13,10 @@ import jwt from "jsonwebtoken"
 import 'dotenv/config'
 import cookieParser from 'cookie-parser'
 import cookie from 'cookie'
-
+import session from 'express-session';
+import passport from 'passport'
+import initialize from "./autenticateUser.js"
+import flash from "express-flash"
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use((req, res, next) => {
@@ -22,6 +25,15 @@ app.use((req, res, next) => {
 });
 app.use(cors())
 app.use(cookieParser())
+app.use(flash())
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 const connection_config = {
@@ -95,12 +107,15 @@ app.post("/", async (req, res) => {
             return;
         }
         if (req.body.password === dbRow.password) {
+            initialize(passport, req.body.email)
             // res.set('Authorization', 'Bearer ' + dbRow.jwt);
-            cookie.serialize("jwt", dbRow.jwt)
-            res.cookie('jwt', dbRow.jwt, { path: "/" })
+            // cookie.serialize("jwt", dbRow.jwt)
+            // res.cookie('jwt', dbRow.jwt, { path: "http://localhost:3000/", httpOnly: false, secure: false })
             //  res.cookie('jwt', "abcd")
             res.json({ Result: "Correct password Logging in " })
-            // res.redirect('https://google.com')
+            // console.log(cook)
+
+            console.log("Yo")
 
         }
         else {
@@ -155,8 +170,13 @@ app.post("/details", cors(), (req, res) => {
     res.status(200)
 })
 
-app.get("/Home", auth, (req, res) => {
+app.get("/Home", passport.session(), (req, res) => {
+    console.log(req.session.passport)
+    // const user = req.session.passport.user;
 
+    // Use the user.
+    // console.log(user.id);
+    // console.log(user.username);
 }
 )
 app.get("/details", (req, res) => {
