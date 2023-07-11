@@ -6,10 +6,10 @@ import server from "./details.js"
 import cors from 'cors'
 
 const io = socketIO(server, {
-    cors: {
-      origin: "*",
-    },
-   });
+  cors: {
+    origin: "*",
+  },
+});
 
 
 

@@ -12,11 +12,11 @@ import { error } from "console"
 import jwt from "jsonwebtoken"
 import 'dotenv/config'
 import cookieParser from 'cookie-parser'
-import cookie from 'cookie'
 import session from 'express-session';
 import passport from 'passport'
 import initialize from "./autenticateUser.js"
 import flash from "express-flash"
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
 app.use((req, res, next) => {
@@ -40,7 +40,8 @@ const connection_config = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }
-export const server = http.createServer(app);
+
+const server = http.createServer(app);
 
 const Storage = multer.diskStorage({
     destination: 'upload',
@@ -186,3 +187,5 @@ app.get("/details", (req, res) => {
 app.listen(port, () => {
     console.log("listening on port " + port)
 })
+
+default export server
