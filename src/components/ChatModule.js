@@ -8,7 +8,10 @@ const ChatModule = () => {
         <>
             <div>
                 <div
-                    className="absolute top-[29px] left-[273px] rounded-xl bg-gainsboro w-[543px] h-[81px]"
+
+
+
+                    className=" absolute top-[29px] left-[273px] rounded-xl bg-gainsboro w-[543px] h-[81px]"
                     id="username_header"
                 />
                 <div className="absolute top-[18px] left-[262px] rounded-xl bg-gray-300 w-[566px] h-[720px] mix-blend-normal" style={{ background: "#171717EB", }} />
