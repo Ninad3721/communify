@@ -13,9 +13,11 @@ function Detail() {
     }, [])
     return (
         <div>
-            {loading ? <DetailSkeleton /> : <DetailForm />}
-            
+            {isAuthorized ? <div>
+                {loading ? <DetailSkeleton /> : <DetailForm />}
+            </div> : <UnAuthorized></UnAuthorized>}
         </div>
+
     )
 }
 

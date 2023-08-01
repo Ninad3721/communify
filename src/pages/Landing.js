@@ -8,6 +8,7 @@ import oldkey from "../images/apple-old-key.png"
 import Alert from '@mui/material/Alert';
 import { redirect } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import background from "../images/login-background.png"
 
 const Landing = () => {
@@ -15,6 +16,8 @@ const Landing = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [alertType, setAlertType] = useState("")
+    const navigate = useNavigate();
+
     const handelSubmit = () => {
         axios.post("http://localhost:5000/",
             {
@@ -38,6 +41,7 @@ const Landing = () => {
                 console.log(error)
             })
     }
+    const { loginWithRedirect } = useAuth0();
     return (
         <>
             {
@@ -99,6 +103,7 @@ const Landing = () => {
                 />
 
                 <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit}>Submit</Button>
+                <button onClick={() => loginWithRedirect()}>Log In</button>;
             </div >
 
         </>

@@ -9,15 +9,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Auth0Provider
-      domain="dev-zxoxtnn1d6evzzy1.us.auth0.com"
-      clientId="CeDgXHKH2ouaxf1vlQkdTBW5J1GwpYuX"
+      domain="dev-8lc0lqo1pnfawv1t.us.auth0.com"
+      clientId="E7RazD5mYNVO0V3SaSi3Tc815Re1nGb6"
       authorizationParams={{
-        redirect_uri: window.location.origin
-      }}>
-
+        redirect_uri: "http://localhost:3000/Home"
+      }}
+    >
       <App />
-
-    </Auth0Provider>
+    </Auth0Provider>,
   </BrowserRouter>
 
 

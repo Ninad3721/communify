@@ -7,23 +7,29 @@ import Navbar2 from '../components/Navbar2'
 import ChatModule from '../components/ChatModule'
 
 function Home() {
-    const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        axios.get("http://localhost:5000/Home").then((response) => {
-            console.log(response)
-            setLoading(false)
-        }).catch((error) => {
-            console.log(error)
-        })
-    }, [])
+    const { user, isAuthenticated, isLoading } = useAuth0();
+    // const [loading, setLoading] = useState(true)
+    // useEffect(() => {
+    //     axios.get("http://localhost:5000/Home").then((response) => {
+    //         console.log(response)
+    //         setLoading(false)
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+    // }, [])
+    if (isLoading) {
+        return <div><HomeSkeleton /></div>;
+    }
     return (
         <>
-            {loading ? <HomeSkeleton /> :
-                <div className='flex ' style={{ backgroundColor: "#20232B" }}>
-                    <Navbar2 />
-                    <ChatModule />
-                </div>
-
+            {
+                isAuthenticated &&
+                (
+                    <div className='flex ' style={{ backgroundColor: "#20232B" }}>
+                        <Navbar2 />
+                        <ChatModule />
+                    </div>
+                )
             }
         </>
 

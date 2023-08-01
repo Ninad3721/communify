@@ -14,8 +14,8 @@ import 'dotenv/config'
 import cookieParser from 'cookie-parser'
 import session from 'express-session';
 import passport from 'passport'
-import initialize from "./autenticateUser.js"
 import flash from "express-flash"
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
@@ -64,43 +64,9 @@ db.once('open', function () {
     console.log('Connected to MongoDB Atlas!');
 });
 
-const auth = async (req, res, next) => {
-    console.log(req.cookies)
-    if (!req.cookies.jwt) {
-        res.json({ Error: "No authorization header found" })
-        res.status(401)
-        return;
-    }
-
-    jwt.verify(req.cookies.jwt, JWTPASS, (err, user) => {
-        if (err) {
-            res.json({ Error: "No Token found" })
-            res.status(401)
-            return;
-        }
-        console.log(user)
-
-    })
-
-    // const authHeaders = req.headers.authorization;
-    // jwt.verify(authHeaders, JWTPASS, (err, user) => {
-    //     if (err) {
-    //         res.json({ Error: "Unauthorized token" })
-    //         console.log("Unauthorized token")
-    //         return;
-    //     }
-    //     console.log(user)
-    //     console.log("Hola")
-    // })
-    // console.log("Success")
-    next()
-}
-
 app.post("/", async (req, res) => {
 
     try {
-        // var User = new userModel();
-        // User.email = req.body.email;
         const dbRow = await userModel.findOne({ email: req.body.email }).exec()
         if (!dbRow) {
             res.json({ Error: "User not found please enter correct email" })
@@ -108,14 +74,7 @@ app.post("/", async (req, res) => {
             return;
         }
         if (req.body.password === dbRow.password) {
-            initialize(passport, req.body.email)
-            // res.set('Authorization', 'Bearer ' + dbRow.jwt);
-            // cookie.serialize("jwt", dbRow.jwt)
-            // res.cookie('jwt', dbRow.jwt, { path: "http://localhost:3000/", httpOnly: false, secure: false })
-            //  res.cookie('jwt', "abcd")
             res.json({ Result: "Correct password Logging in " })
-            // console.log(cook)
-
             console.log("Yo")
 
         }
@@ -171,15 +130,7 @@ app.post("/details", cors(), (req, res) => {
     res.status(200)
 })
 
-app.get("/Home", passport.session(), (req, res) => {
-    console.log(req.session.passport)
-    // const user = req.session.passport.user;
 
-    // Use the user.
-    // console.log(user.id);
-    // console.log(user.username);
-}
-)
 app.get("/details", (req, res) => {
     res.send("Hello")
 })
@@ -188,4 +139,4 @@ app.listen(port, () => {
     console.log("listening on port " + port)
 })
 
-default export server
+export default server
