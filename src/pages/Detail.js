@@ -4,8 +4,8 @@ import UnAuthorized from './UnAuthorized'
 import DetailForm from '../components/DetailForm'
 import DetailSkeleton from "../components/Skeletons/pages/DetailSkeleton"
 function Detail() {
-    const { isAuthorized } = useAuth0()
-    console.log(isAuthorized)
+    const { isAuthenticated, user } = useAuth0()
+
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -13,8 +13,8 @@ function Detail() {
     }, [])
     return (
         <div>
-            {isAuthorized ? <div>
-                {loading ? <DetailSkeleton /> : <DetailForm />}
+            {isAuthenticated ? <div>
+                {loading ? <DetailSkeleton /> : <DetailForm user={user} />}
             </div> : <UnAuthorized></UnAuthorized>}
         </div>
 

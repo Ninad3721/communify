@@ -6,9 +6,11 @@ import { PeopleCommunity } from "@styled-icons/fluentui-system-filled/PeopleComm
 import { ChatMultiple } from "@styled-icons/fluentui-system-filled/ChatMultiple"
 import { Home } from "@styled-icons/entypo/Home"
 import { Settings } from '@styled-icons/fluentui-system-filled/Settings';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Navbar() {
     const [activeItem, setActiveItem] = useState("Home");
+    const { user } = useAuth0();
     return (
         <Box
             sx={{
@@ -19,14 +21,13 @@ function Navbar() {
                 backgroundColor: 'black',
                 opacity: 0.8,
             }}
-
         >
             {/* Box content goes here */}
             <div className="text-center flex">
                 <Avatar
                     className="mt-2 ml-2"
                     alt="Remy Sharp"
-                    src="/static/images/avatar/1.jpg"
+                    src={user.picture}
                     sx={{ width: 56, height: 56 }}
                 />
                 <div className="text-white text-left ml-2 grid-rows-3 font-bold text-sm mt-3">
@@ -41,7 +42,6 @@ function Navbar() {
                 <a><Home className="h-8 mr-2" />Home</a>
                 <a><Settings className="h-8 mr-2" />Settings</a>
             </div>
-
             <a></a>
         </Box >
     );

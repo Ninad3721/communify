@@ -102,8 +102,10 @@ const Landing = () => {
                     src={technologist}
                 />
 
-                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={handelSubmit}>Submit</Button>
-                <button onClick={() => loginWithRedirect()}>Log In</button>;
+                <Button sx={{ width: 310 }} className="absolute top-[529px] left-[-250px] text-blue underline bg-green-500" variant="contained" onClick={() => {
+                    loginWithRedirect()
+                    handelSubmit()
+                }} >Login with auth0</Button>
             </div >
 
         </>

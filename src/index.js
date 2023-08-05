@@ -12,7 +12,8 @@ root.render(
       domain="dev-8lc0lqo1pnfawv1t.us.auth0.com"
       clientId="E7RazD5mYNVO0V3SaSi3Tc815Re1nGb6"
       authorizationParams={{
-        redirect_uri: "http://localhost:3000/Home"
+        redirect_uri: "http://localhost:3000/Detail",
+        screen_hint: 'signup'
       }}
     >
       <App />

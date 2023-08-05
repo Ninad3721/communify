@@ -6,11 +6,12 @@ import Avatar from '@mui/material/Avatar';
 import "./DetailForm.css"
 import Alert from '@mui/material/Alert';
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
+import technologist from '../images/apple_technologist.png';
 
 
-
-
-function DetailForm() {
+function DetailForm({ user }) {
+    const { isAuthenticated } = useAuth0();
     const navigate = useNavigate();
     const [username, setUsername] = useState("")
     const [firstName, setFirstName] = useState("")
@@ -21,6 +22,7 @@ function DetailForm() {
     const [sucess, setSuccess] = useState(false)
 
     const handleSubmit = async () => {
+
         try {
             if (username == "" || firstName === "" || lastName === "" || age === 0 || dob === new Date()) {
 
@@ -30,7 +32,7 @@ function DetailForm() {
 
             await axios.post('http://localhost:5000/details',
                 {
-
+                    email: user.email,
                     username: username,
                     firstname: firstName,
                     lastname: lastName,
@@ -39,9 +41,8 @@ function DetailForm() {
 
                 }
 
-
-
             )
+            console.log("Test" + user.email)
             navigate("/Home");
 
         } catch (error) {
@@ -50,8 +51,6 @@ function DetailForm() {
 
     }
     return (
-
-
         <div className="relative  rounded-[20px] bg-white w-full h-[882px] overflow-hidden text-left text-17xl text-black font-inter">
             {error ? <Alert style={{ height: "80px" }} severity="error">Fill up all the details </Alert> : ""}
             <div className="absolute top-[897px] left-[402px] rounded-[14px] bg-gainsboro w-[961px] h-[86px]" />
@@ -88,18 +87,16 @@ function DetailForm() {
             <div className="absolute grid top-[800px] left-[476px] font-light w-[409px] h-9 bg-green-400 text-white">
                 <Button onClick={handleSubmit} className='bg-green-400 text-white '>Success </Button>
             </div>
-
+            <h2 className="m-0 absolute top-[104px] left-[500px] text-[48px] font-normal font-motley-forces text-mediumspringgreen inline-block w-[341px] h-[73px] mix-blend-multiply " style={{
+                fontFamily: "Motley Forces", color: "#00D88E"
+            }}>
+                Communify
+            </h2>
+            <img
+                className="absolute top-[110px] left-[750px] w-9 h-[41px] object-cover"
+                src={technologist}
+            />
             <div className=" flex absolute top-[80px] left-[460px] text-21xl font-extrabold  w-[358px] h-28">
-                <Avatar
-                    className="mt-2 ml-2 "
-                    alt="Remy Sharp"
-                    src="/static/images/avatar/1.jpg"
-                    sx={{ width: 100, height: 100 }}
-                />
-                <div className='mt-7 ml-6 text-lg'>
-                    <p className="m-0">PICK YOUR</p>
-                    <p className="m-0"> AVATAR </p>
-                </div>
             </div>
             <img
                 className="absolute top-[543px] left-[0px] w-[476px] h-[339px] object-cover"
@@ -107,10 +104,10 @@ function DetailForm() {
                 src="https://img.freepik.com/free-vector/open-source-concept-illustration_114360-3583.jpg?w=996&t=st=1685906975~exp=1685907575~hmac=676ea80776dbd97f03deba16d09409b1c8dc9d30cd75ca543d5dfafb7f194b1a"
             />
             <div className="absolute top-[312px] left-[192px] text-21xl font-extrabold inline-block w-80 h-[283px]">
-                <p className="m-0">LO</p>
-                <p className="m-0">GO</p>
+
             </div>
         </div>
+
 
 
     )

@@ -7,7 +7,6 @@ import InputSkeleton from '../InputSkeleton'
 function HomeSkeleton() {
     return (
         <div className='flex'>
-            <SidebarSkeleton />
             <div>
                 <ChatSkeleton />
                 <InputSkeleton />

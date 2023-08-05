@@ -113,10 +113,10 @@ app.post("/Signup", (req, res) => {
 app.post("/details", cors(), (req, res) => {
     res.send("Success")
     var User = new userModel()
-    console.log(req.body)
     // User.avatar.data = req.file.filename,
     // User.avatar.contentType = 'image/png',
-    User.username = req.body.username,
+    User.email = req.body.email,
+        User.username = req.body.username,
         User.firstName = req.body.firstname,
         User.lastName = req.body.lastname,
         User.age = req.body.age,
@@ -131,8 +131,9 @@ app.post("/details", cors(), (req, res) => {
 })
 
 
-app.get("/details", (req, res) => {
-    res.send("Hello")
+app.get("/Home", async (req, res) => {
+    const dbRow = await userModel.findOne({ email: req.header })
+    res.send({ "hello": "World" })
 })
 
 app.listen(port, () => {

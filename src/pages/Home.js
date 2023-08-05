@@ -5,32 +5,33 @@ import axios from 'axios'
 import HomeSkeleton from '../components/Skeletons/pages/HomeSkeleton'
 import Navbar2 from '../components/Navbar2'
 import ChatModule from '../components/ChatModule'
-
+import VideoChatModule from '../components/VideoChatModule'
+import UnAuthorized from './UnAuthorized'
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();
-    // const [loading, setLoading] = useState(true)
-    // useEffect(() => {
-    //     axios.get("http://localhost:5000/Home").then((response) => {
-    //         console.log(response)
-    //         setLoading(false)
-    //     }).catch((error) => {
-    //         console.log(error)
-    //     })
-    // }, [])
+    useEffect(() => {
+        axios.get("http://localhost:5000/Home").then((response) => {
+            console.log(response)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }, [])
     if (isLoading) {
         return <div><HomeSkeleton /></div>;
     }
     return (
         <>
-            {
-                isAuthenticated &&
-                (
-                    <div className='flex ' style={{ backgroundColor: "#20232B" }}>
-                        <Navbar2 />
-                        <ChatModule />
-                    </div>
-                )
+
+            {isAuthenticated ? (
+                <div className='flex' style={{ backgroundColor: "#20232B" }}>
+                    <Navbar2 />
+                    {/* <ChatModule /> */}
+                    <div style={{ position: "absolute", left: "200px" }}></div>
+                    <VideoChatModule />
+                </div>
+            ) : <UnAuthorized />
             }
+
         </>
 
 

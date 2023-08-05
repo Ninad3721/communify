@@ -8,12 +8,6 @@ const userSchema = new mongoose.Schema({
         unique: true,
 
     },
-    password:
-    {
-        type: String,
-        required: true,
-        trim: true,
-    },
     username: {
         type: String,
         trim: true,
@@ -25,11 +19,6 @@ const userSchema = new mongoose.Schema({
     //     contentType: String,
 
     // },
-    jwt:
-    {
-        type: String,
-        required: true,
-    },
     dob:
     {
         type: Date,
