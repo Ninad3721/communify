@@ -5,7 +5,7 @@ import axios from 'axios'
 import HomeSkeleton from '../components/Skeletons/pages/HomeSkeleton'
 import Navbar2 from '../components/Navbar2'
 import ChatModule from '../components/ChatModule'
-import VideoChatModule from '../components/VideoChatModule'
+import VideoChatModule from '../VideoChatModule'
 import UnAuthorized from './UnAuthorized'
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();

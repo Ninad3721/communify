@@ -133,7 +133,7 @@ app.post("/details", cors(), (req, res) => {
 
 app.get("/Home", async (req, res) => {
     const dbRow = await userModel.findOne({ email: req.header })
-    res.send({ "hello": "World" })
+    // res.send({ "hello": "World" })
 })
 
 app.listen(port, () => {

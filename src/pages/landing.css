@@ -2,3 +2,7 @@
     background: #1AC789;
     background: linear-gradient(135deg, #1AC789, #1E4473);
 }
+
+* {
+    background-image: url("../images/login-background.png");
+}
