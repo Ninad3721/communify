@@ -7,6 +7,7 @@ import Navbar2 from '../components/Navbar2'
 import ChatModule from '../components/ChatModule'
 import VideoChatModule from '../VideoChatModule'
 import UnAuthorized from './UnAuthorized'
+import VideoChatButton from '../components/VideoChatButton'
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     useEffect(() => {
@@ -23,14 +24,13 @@ function Home() {
         <>
 
             {isAuthenticated ? (
-                <div className='flex' style={{ backgroundColor: "#20232B" }}>
+                <div className="flex">
                     <Navbar2 />
-                    {/* <ChatModule /> */}
-                    <div style={{ position: "absolute", left: "200px" }}></div>
-                    <VideoChatModule />
+                    <ChatModule />
                 </div>
-            ) : <UnAuthorized />
-            }
+
+
+            ) : <UnAuthorized />}
 
         </>
 
