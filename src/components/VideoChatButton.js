@@ -2,17 +2,18 @@ import React from 'react'
 import videoCamIcon from '../images/videoCam.png'
 function VideoChatButton() {
     return (
-        <div className='w-258px h-60px bg-white' >
-            <div className='flex'>
+        <button className='m-3 relative bottom-2 left-3  h-12 w-64 bg-[#2c2c2c] rounded-lg' >
+            <div className='flex items-center'>
                 <img
-                    style={{ width: "50px", height: "50px" }}
+                    className='m-1 relative left-3'
+                    style={{ width: "40px", height: "40px" }}
                     src={videoCamIcon}>
                 </img>
-                <div>
-                    <p>Video Chat</p>
+                <div className='relative left-12 text-lg text-white'>
+                    <p>Video Chat </p>
                 </div>
             </div>
-        </div>
+        </button>
     )
 }
 

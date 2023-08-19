@@ -10,7 +10,7 @@ const ChatModule = () => {
 
 
             <div className="w-[553px] h-[600px] bg-[#171717] m-3 rounded-xl">
-                <div className="m-3 bg-[#2c2c2c] w-120 rounded-xl h-14 ">
+                <div className="m-3 relative top-3 bg-[#2c2c2c] w-120 rounded-xl h-14 ">
                     <div className="flex">
                         <img
                             className="relative bottom-2 opacity-100"

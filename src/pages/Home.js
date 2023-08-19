@@ -8,6 +8,8 @@ import ChatModule from '../components/ChatModule'
 import VideoChatModule from '../VideoChatModule'
 import UnAuthorized from './UnAuthorized'
 import VideoChatButton from '../components/VideoChatButton'
+import NotionButton from '../components/NotionButton'
+import AIModule from '../components/AIModule'
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     useEffect(() => {
@@ -24,12 +26,23 @@ function Home() {
         <>
 
             {isAuthenticated ? (
-                <div className="flex">
-                    <Navbar2 />
-                    <ChatModule />
-                </div>
+                <>
+                    <div className="flex bg-[#20232b] h-[100%]">
+                        <div>
+                            <Navbar2 />
+                        </div>
+                        <div>
+                            <ChatModule />
+                            <div className='flex'>
+                                <VideoChatButton />
+                                <NotionButton />
+                            </div>
+                        </div>
+                        <AIModule />
 
+                    </div>
 
+                </>
             ) : <UnAuthorized />}
 
         </>
