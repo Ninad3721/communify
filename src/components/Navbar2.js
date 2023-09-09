@@ -2,6 +2,7 @@ import memoji1 from "../images/memoji1.png"
 import appleMessage from "../images/apple-message.png"
 import appleSettings from "../images/apple-settings.png"
 import appleCalendar from "../images/appleCalendar.png"
+import appleNote from "../images/note-apple.png"
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -51,7 +52,6 @@ const Navbar2 = () => {
                                 src={appleCalendar}></img>
                             <p className="text-[19px] font-roboto">Calendar</p>
                         </div>
-
                     </ul>
                 </div>
 

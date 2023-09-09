@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import appleRobot from "../images/appleRobot.png"
 import appleRocket from "../images/apple-rocket.png"
 import Alert from '@mui/material/Alert';
-import '@tensorflow/tfjs';
-import * as use from '@tensorflow-models/universal-sentence-encoder';
-import { GPT2Tokenizer, GPT2LMHeadModel } from '@huggingface/hub';
+import { HfInference } from '@huggingface/inference'
 import axios from 'axios'
 function AIModule() {
     const [input, setInput] = useState('');
@@ -19,23 +17,18 @@ function AIModule() {
             setAlertMessage("No input provided")
         }
         else {
-            console.log(input)
+            const hf = await new HfInference('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')
             try {
-                const model = await use.load();
-                const inputEmbedding = await model.embed([input]);
-
-                //Loading gpt model 2
-                const gpt2Tokenizer = new GPT2Tokenizer();
-                const gpt2Model = await GPT2LMHeadModel.fromPretrained('gpt2');
-
-                const inputIds = gpt2Tokenizer.encode(input, undefined, 'user');
-                const output = await gpt2Model.generate(inputIds, { max_length: 100 });
-                const generatedText = gpt2Tokenizer.decode(output[0]);
-                setOutput(generatedText);
-                console.log(output);
-            } catch (error) {
-                console.log(error)
+                const res = await hf.textGeneration({
+                    model: 'gpt2-xl',
+                    inputs: input,
+                })
+                setOutput(res)
+                console.log(output)
+            } catch (e) {
+                console.log(e)
             }
+
 
         }
     }

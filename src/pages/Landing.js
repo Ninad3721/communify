@@ -36,7 +36,7 @@ const Landing = () => {
     return (
         <>
             {
-                <Alert severity="success" style={{ visiblity: visiblity }}>{alertMessage}</Alert>
+                // <Alert severity="success" style={{ visiblity: visiblity }}>{alertMessage}</Alert>
             }
 
 

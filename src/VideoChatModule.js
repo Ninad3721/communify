@@ -1,5 +1,6 @@
 // import "./VideoChatModule.css";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import TextField from '@mui/material/TextField';
 import {
     MeetingProvider,
     MeetingConsumer,
@@ -8,6 +9,7 @@ import {
 } from "@videosdk.live/react-sdk";
 import { authToken, createMeeting } from "./API";
 import ReactPlayer from "react-player";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function JoinScreen({ getMeetingAndToken }) {
     const [meetingId, setMeetingId] = useState(null);
@@ -15,17 +17,19 @@ function JoinScreen({ getMeetingAndToken }) {
         await getMeetingAndToken(meetingId);
     };
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Enter Meeting Id"
-                onChange={(e) => {
-                    setMeetingId(e.target.value);
-                }}
-            />
-            <button onClick={onClick}>Join</button>
-            {" or "}
-            <button onClick={onClick}>Create Meeting</button>
+        <div className="relative top-32 left-72 w-72">
+            <div>
+                <TextField id="outlined-basic" label="Enter Meeting Id" variant="outlined" placeholder="Enter Meeting Id"
+                    onChange={(e) => {
+                        setMeetingId(e.target.value);
+                    }} />
+            </div>
+            <div>
+                <button onClick={onClick}>Join</button>
+                {" or "}
+                <button onClick={onClick}>Create Meeting</button>
+            </div>
+
         </div>
     );
 }
@@ -122,7 +126,7 @@ function MeetingView(props) {
     };
 
     return (
-        <div className="container">
+        <div className="container  relative top-32 left-72 w-72">
             <h3>Meeting Id: {props.meetingId}</h3>
             {joined && joined == "JOINED" ? (
                 <div>
@@ -146,6 +150,7 @@ function MeetingView(props) {
 
 function VideoChatModule() {
     const [meetingId, setMeetingId] = useState(null);
+    const { user } = useAuth0();
 
     //Getting the meeting id by calling the api we just wrote
     const getMeetingAndToken = async (id) => {
@@ -165,7 +170,7 @@ function VideoChatModule() {
                 meetingId,
                 micEnabled: true,
                 webcamEnabled: true,
-                name: "C.V. Raman",
+                name: user.name,
             }}
             token={authToken}
         >

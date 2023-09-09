@@ -1,20 +1,13 @@
 import express from "express"
 export const app = express()
-const port = 5000
-const JWTPASS = "nkjdnfohfhohdhwofjnffoh"
+import axios from "axios"
+const port = 5000;
 import mongoose from 'mongoose'
 import cors from 'cors'
 import userModel from "./model/user_detail.js"
 import bodyParser from 'body-parser'
-import multer from 'multer'
-import http from "http"
-import { error } from "console"
-import jwt from "jsonwebtoken"
 import 'dotenv/config'
-import cookieParser from 'cookie-parser'
-import session from 'express-session';
-import passport from 'passport'
-import flash from "express-flash"
+
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -23,36 +16,16 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     next();
 });
-app.use(cors())
-app.use(cookieParser())
-app.use(flash())
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
+app.use(cors(
+    {
+        origin: "http://localhost:5000/Notion",
+    }
+))
 
 const connection_config = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }
-
-const server = http.createServer(app);
-
-const Storage = multer.diskStorage({
-    destination: 'upload',
-    filename: (req, file, cb) => {
-        cb(null, Date.now + file.originalname)
-    }
-})
-
-const upload = multer({
-    storage: Storage,
-}).single('testImage')
 
 const db_url = "mongodb+srv://Ninad:4u2HGF9pHMhZJAQB@cluster0.tbblf5d.mongodb.net/?retryWrites=true&w=majority"
 
@@ -64,52 +37,8 @@ db.once('open', function () {
     console.log('Connected to MongoDB Atlas!');
 });
 
-app.post("/", async (req, res) => {
 
-    try {
-        const dbRow = await userModel.findOne({ email: req.body.email }).exec()
-        if (!dbRow) {
-            res.json({ Error: "User not found please enter correct email" })
-            console.log("User not found")
-            return;
-        }
-        if (req.body.password === dbRow.password) {
-            res.json({ Result: "Correct password Logging in " })
-            console.log("Yo")
 
-        }
-        else {
-            res.json({ Error: "Incorrect Password " })
-            console.log(dbRow.password + " " + req.body.password)
-            console.log("User not found")
-        }
-    } catch (error) {
-        console.log(error)
-    }
-
-})
-
-app.post("/Signup", (req, res) => {
-    //Signup using email and password
-    //If user is already present then dont add to db and giev warning
-
-    var User = new userModel();
-    try {
-        const token = jwt.sign(req.body.email, JWTPASS)
-        User.email = req.body.email
-        User.password = req.body.password
-        User.jwt = token
-        User.save().then(() => {
-            res.status(200)
-        }).catch(error)
-        {
-            console.log(error)
-
-        }
-    } catch (error) {
-        console.log("Error message " + error.message)
-    }
-})
 app.post("/details", cors(), (req, res) => {
     res.send("Success")
     var User = new userModel()
@@ -130,14 +59,15 @@ app.post("/details", cors(), (req, res) => {
     res.status(200)
 })
 
+app.get("/Notion", async (req, res) => {
+    console.log("hemlo")
+    try {
+        const response = await axios.getUri("https://api.notion.com/v1/oauth/authorize?client_id=40f7e3f9-7501-4f6a-9846-f2c92e976113&response_type=code&owner=user&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2FNotion")
 
-app.get("/Home", async (req, res) => {
-    const dbRow = await userModel.findOne({ email: req.header })
-    // res.send({ "hello": "World" })
+    } catch (error) {
+        console.log(error)
+    }
 })
-
 app.listen(port, () => {
     console.log("listening on port " + port)
 })
-
-export default server
