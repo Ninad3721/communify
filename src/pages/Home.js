@@ -11,6 +11,7 @@ import VideoChatButton from '../components/VideoChatButton'
 import NotionButton from '../components/NotionButton'
 import AIModule from '../components/AIModule'
 import VideoChatDialog from '../components/VideoChatDialog'
+import NotionDialogBox from '../components/NotionDialogBox'
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const [videoChatModuleVisiblity, setVideoChatModuleVisiblity] = useState(false)
@@ -18,14 +19,7 @@ function Home() {
     const [permitted, setPermitted] = useState(false)
     const [openDailogBox, setOpenDialogBox] = React.useState(false);
     const [redirectNotion, setRedirectNotion] = useState(false);
-    useEffect(() => {
-        axios.get("http://localhost:5000/Home").then((response) => {
-            console.log(response)
-        }).catch((error) => {
-            console.log(error)
-        })
-        console.log(isAuthenticated)
-    }, [])
+
     if (isLoading) {
         return <div><HomeSkeleton /></div>;
     }
@@ -36,11 +30,6 @@ function Home() {
     const handleClickOpen = () => {
         setOpenDialogBox(true);
     };
-
-    const handleNotionClick = async () => {
-        console.log("Hello")
-        await axios.get("http://localhost:5000/Notion")
-    }
 
     return (
 
@@ -57,8 +46,8 @@ function Home() {
 
                         <div className='flex'>
                             <VideoChatDialog />
+                            <NotionDialogBox/>
                             {/* <button onClick={handleClickOpen}> <VideoChatButton openDailogBox={openDailogBox} /></button> */}
-                            <a href="https://api.notion.com/v1/oauth/authorize?client_id=40f7e3f9-7501-4f6a-9846-f2c92e976113&response_type=code&owner=user&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2FNotion"><NotionButton /></a>
                         </div>
                     </div>
                     <AIModule />
