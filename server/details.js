@@ -98,10 +98,49 @@ app.get("/Notion", async (req, res) => {
         }})
         res.send(userArray);
         res.status(200)
-        console.log(userArray)
+        
     } catch (error) {
         console.log(error)
     }
+})
+
+
+app.get('/NotionPagesAndDatabases' , async (req,res)=>
+{
+    let DatabaseArr = [];
+    let PageArr = [];
+    try{
+        const res = await axios.post('https://api.notion.com/v1/search',
+    {
+        headers:
+        {
+            Authorization : 'Bearer secret_JO1OkCvdwKMgFEgdXoIu91eiKnfNEqXnNgirTj5PMb6',
+            'Notion-Version' : '2022-06-28',
+        }
+    })
+    console.log(res.data)
+    res.data.results.map((obj)=>
+    {
+        if(obj.object ===  'page')
+        {
+            PageArr.push(obj)
+        }
+        else
+        {
+            DatabaseArr.push(obj)
+        }
+    })
+    res.send(DatabaseArr,PageArr)
+    res.status(200)
+    } catch(error)
+    {
+        res.status(error)
+        res.status(400)
+    }
+    
+
+
+    
 })
 
 app.listen(port, () => {

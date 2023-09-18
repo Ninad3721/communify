@@ -5,6 +5,7 @@ import Detail from './pages/Detail'
 import UnAuthorized from './pages/UnAuthorized'
 import Home from './pages/Home';
 import Signup from "./pages/Signup"
+import NotionNotes from './pages/NotionNotes'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/UnAuthorized" element={<UnAuthorized></UnAuthorized>} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path ="/NotionNotes" element = {<NotionNotes/>}/>
       </Routes>
     </>
   );

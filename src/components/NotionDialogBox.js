@@ -10,6 +10,7 @@ import NotionButton from '../components/NotionButton'
 import VideoChatModule from '../VideoChatModule';
 import axios from 'axios'
 import { use } from 'passport';
+import { Navigate , Link} from 'react-router-dom';
 // import "./VideoChatDialog.css"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -29,7 +30,12 @@ export default function NotionDialogBox(openDialogBox) {
     const handleClose = () => {
         setOpen(false);
     };
+    
+    const handleProfileSelect=() =>
+    {
 
+        <Navigate to="/NotionNotes" />
+    }
     return (
         <div>
             <button onClick={handleClickOpen}>
@@ -57,7 +63,7 @@ export default function NotionDialogBox(openDialogBox) {
                                     <ol className="border-2 rounded-md m-2">
                 
                             <div className='flex p-4'>
-                                <button>
+                                <button onClick={handleProfileSelect}>
                                     <img
                                         className="relative  left-4 rounded-[50px] w-[68px] h-[68px] object-cover"
                                         alt="Avatar"
@@ -66,14 +72,11 @@ export default function NotionDialogBox(openDialogBox) {
                                     />
                                 </button>   
                                 <div className='ml-7 relative left-4 inline'>
-                                    <button>  <p className='text-lg  mb-1'>{item.name}</p></button>
-
+                                    <button>  <Link to={"/NotionNotes"} className='text-lg  mb-1'>{item.name}</Link></button>
                                     <p className='text-sm font-thin'>{item.email}</p>
                                 </div>
                             </div>
-                             </ol>
-                              
-                            
+                             </ol>     
         ))}
                         </DialogContentText>
                     </DialogContent>
