@@ -105,12 +105,12 @@ app.get("/Notion", async (req, res) => {
 })
 
 
-app.get('/NotionPagesAndDatabases' , async (req,res)=>
+app.get("/NotionPagesAndDatabases" , async (req,res)=>
 {
     let DatabaseArr = [];
     let PageArr = [];
     try{
-        const res = await axios.post('https://api.notion.com/v1/search',
+        const res = await axios("https://api.notion.com/v1/search",
     {
         headers:
         {
@@ -118,7 +118,7 @@ app.get('/NotionPagesAndDatabases' , async (req,res)=>
             'Notion-Version' : '2022-06-28',
         }
     })
-    console.log(res.data)
+    console.log("hello")
     res.data.results.map((obj)=>
     {
         if(obj.object ===  'page')
