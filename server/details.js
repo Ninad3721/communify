@@ -107,34 +107,38 @@ app.get("/Notion", async (req, res) => {
 
 app.get("/NotionPagesAndDatabases" , async (req,res)=>
 {
+
     let DatabaseArr = [];
     let PageArr = [];
     try{
-        const res = await axios("https://api.notion.com/v1/search",
-    {
-        headers:
+        const res = await axios.post("https://api.notion.com/v1/search",
         {
-            Authorization : 'Bearer secret_JO1OkCvdwKMgFEgdXoIu91eiKnfNEqXnNgirTj5PMb6',
-            'Notion-Version' : '2022-06-28',
+            headers:
+            {
+                Authorization : 'Bearer secret_JO1OkCvdwKMgFEgdXoIu91eiKnfNEqXnNgirTj5PMb6',
+                'Notion-Version' : '2022-06-28',
+                'Content-Type': 'application/json'
+            } 
         }
-    })
-    console.log("hello")
-    res.data.results.map((obj)=>
-    {
-        if(obj.object ===  'page')
-        {
-            PageArr.push(obj)
-        }
-        else
-        {
-            DatabaseArr.push(obj)
-        }
-    })
-    res.send(DatabaseArr,PageArr)
-    res.status(200)
+        )
+    res.send(res)
+    // console.log("hello")
+    // res.data.results.map((obj)=>
+    // {
+    //     if(obj.object ===  'page')
+    //     {
+    //         PageArr.push(obj)
+    //     }
+    //     else
+    //     {
+    //         DatabaseArr.push(obj)
+    //     }
+    // })
+    // res.send(DatabaseArr,PageArr)
+    // res.status(200)
     } catch(error)
     {
-        res.status(error)
+        res.send(error)
         res.status(400)
     }
     
