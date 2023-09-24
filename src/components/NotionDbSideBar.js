@@ -7,7 +7,17 @@ function NotionDbSideBar() {
   {
     console.log("he")
     try {
-      const res = await axios.get('http://localhost:5000/NotionPagesAndDatabases');
+      const res = await axios.post("https://api.notion.com/v1/search",
+      {
+          headers:
+          {
+              Authorization : 'Bearer secret_JO1OkCvdwKMgFEgdXoIu91eiKnfNEqXnNgirTj5PMb6',
+              'Notion-Version' : '2022-06-28',
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin' : 'True'
+          } 
+      }
+      )
       console.log(res)
     } catch (error) {
       console.log(error)
