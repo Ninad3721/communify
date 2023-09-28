@@ -20,6 +20,13 @@ function Home() {
     const [openDailogBox, setOpenDialogBox] = React.useState(false);
     const [redirectNotion, setRedirectNotion] = useState(false);
 
+    useEffect(()=>
+    {
+        if(!isLoading)
+        {
+            sendUserData()
+        }
+    },[isLoading])
     if (isLoading) {
         return <div><HomeSkeleton /></div>;
     }
@@ -30,6 +37,13 @@ function Home() {
     const handleClickOpen = () => {
         setOpenDialogBox(true);
     };
+
+    const sendUserData = async()=>
+    {
+        axios.post("http://localhost:5000/Home" , {
+            email : user.email
+        })
+    }
 
     return (
 

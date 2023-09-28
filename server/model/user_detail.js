@@ -8,11 +8,11 @@ const userSchema = new mongoose.Schema({
         unique: true,
 
     },
-    username: {
-        type: String,
-        trim: true,
-        default: null
-    },
+    // username: {
+    //     type: String,
+    //     trim: true,
+    //     default: null
+    // },
     // avatar:
     // {
     //     data: Buffer,
@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: null
     },
+    pageId:
+    {
+        type : [String],
+        default : null
+    }
 
 })
 

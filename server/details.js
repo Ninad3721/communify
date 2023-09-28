@@ -17,11 +17,11 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     next();
 });
-// app.use(cors(
-//     {
-//         origin: "http://localhost:3000",
-//     }
-// ))
+app.use(cors(
+    {
+        origin: "http://localhost:3000",
+    }   
+))
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -71,6 +71,26 @@ app.post("/details", cors(), (req, res) => {
     res.status(200)
 })
 
+app.post("/Home" , async (req,res)=>
+{
+    const userEmail = req.body.email
+    const response = await userModel.find({email : userEmail })
+    console.log(response)
+    // if()
+    // {
+    //     const User = new userModel()
+    //     User.email = userEmail
+    //     User.save().then(()=>
+    //     {
+    //         res.status(200)
+
+    //     }).catch((error)=>
+    //     {
+    //         res.send(error)
+    //         res.status(400)
+    //     })
+    // }
+})
 app.get("/Notion", async (req, res) => {
     console.log("hemlo")
     try {
@@ -79,7 +99,7 @@ app.get("/Notion", async (req, res) => {
         {
             headers:
             {
-                Authorization : 'Bearer secret_JO1OkCvdwKMgFEgdXoIu91eiKnfNEqXnNgirTj5PMb6',
+                Authorization : 'Bearer secret_w4femp7hkXOmfmxkWwBHfXPx14lc71ZKatGycd1sCJg',
                 'Notion-Version' : '2022-06-28',
             }
         })
@@ -105,46 +125,22 @@ app.get("/Notion", async (req, res) => {
 })
 
 
-app.get("/NotionPagesAndDatabases" , async (req,res)=>
+
+app.post("/fetchPageInfo" , async  (req,res)=>
 {
-
-    let DatabaseArr = [];
-    let PageArr = [];
-    try{
-        const res = await axios.post("https://api.notion.com/v1/search",
-        {
-            headers:
-            {
-                Authorization : 'Bearer secret_JO1OkCvdwKMgFEgdXoIu91eiKnfNEqXnNgirTj5PMb6',
-                'Notion-Version' : '2022-06-28',
-                'Content-Type': 'application/json'
-            } 
-        }
-        )
-    res.send(res)
-    // console.log("hello")
-    // res.data.results.map((obj)=>
-    // {
-    //     if(obj.object ===  'page')
-    //     {
-    //         PageArr.push(obj)
-    //     }
-    //     else
-    //     {
-    //         DatabaseArr.push(obj)
-    //     }
-    // })
-    // res.send(DatabaseArr,PageArr)
-    // res.status(200)
-    } catch(error)
+    var User = new userModel()
+    const userEmail = req.body.email
+    const pageIdArray = await User.find({email: userEmail})
+    console.log(pageIdArray)
+    const response = await axios.get("https://api.notion.com/v1/pages/79d0ad742581420cb2f9b6348a5716d7", 
     {
-        res.send(error)
-        res.status(400)
-    }
-    
-
-
-    
+        headers:
+        {
+            Authorization : 'Bearer secret_w4femp7hkXOmfmxkWwBHfXPx14lc71ZKatGycd1sCJg',
+            'Notion-Version' : '2022-06-28',
+        }
+    })
+    //  console.log(response.data)
 })
 
 app.listen(port, () => {
