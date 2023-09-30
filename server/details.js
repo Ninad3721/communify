@@ -75,21 +75,22 @@ app.post("/Home" , async (req,res)=>
 {
     const userEmail = req.body.email
     const response = await userModel.find({email : userEmail })
-    console.log(response)
-    // if()
-    // {
-    //     const User = new userModel()
-    //     User.email = userEmail
-    //     User.save().then(()=>
-    //     {
-    //         res.status(200)
 
-    //     }).catch((error)=>
-    //     {
-    //         res.send(error)
-    //         res.status(400)
-    //     })
-    // }
+
+    if(response.length === 0)
+    {
+        const User = new userModel()
+        User.email = userEmail
+        User.save().then(()=>
+        {
+            res.status(200)
+
+        }).catch((error)=>
+        {
+            res.send(error)
+            res.status(400)
+        })
+    }
 })
 app.get("/Notion", async (req, res) => {
     console.log("hemlo")
@@ -130,7 +131,7 @@ app.post("/fetchPageInfo" , async  (req,res)=>
 {
     var User = new userModel()
     const userEmail = req.body.email
-    const pageIdArray = await User.find({email: userEmail})
+    const pageIdArray = await userModel.find({email: userEmail})
     console.log(pageIdArray)
     const response = await axios.get("https://api.notion.com/v1/pages/79d0ad742581420cb2f9b6348a5716d7", 
     {
