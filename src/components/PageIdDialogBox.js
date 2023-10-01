@@ -7,27 +7,35 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { useState } from 'react';
+import { Input } from '@mui/icons-material';
+import { TextField } from '@mui/material';
+import axios from 'axios';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function pageIdBoxDialogBox() {
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
+export default function PageIdDialogBox({pageIdBox, user}) {
+  const [open, setOpen] = useState({pageIdBox});
+  const [pageId, setPageId] = useState('')
+    const handleSubmit= async ()=>
+    {
+        setPageId(pageId)
+        try {
+            const res = await axios.post("http://localhost:5000/saveNotionPageId", {
+                user : user,
+                pageId : pageId
+            })
+            console.log(res)
+        } catch (error) {
+            
+        }
+    }
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Slide in alert dialog
-      </Button>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -35,16 +43,16 @@ export default function pageIdBoxDialogBox() {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle>{"Page Id Connect"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Enter your page Id from Notion app to connect it to communify
           </DialogContentText>
+          <TextField id="outlined-basic" variant="outlined" onChange={(e)=>{setPageId(e.target.value)}}  />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

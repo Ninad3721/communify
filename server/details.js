@@ -127,12 +127,13 @@ app.get("/Notion", async (req, res) => {
 
 
 
-app.post("/fetchPageInfo" , async  (req,res)=>
+app.post("/fetchUserInfo" , async  (req,res)=>
 {
     var User = new userModel()
     const userEmail = req.body.email
-    const pageIdArray = await userModel.find({email: userEmail})
-    console.log(pageIdArray)
+    const userInfo = await userModel.find({email: userEmail})
+    res.send(userInfo[0])
+    res.status(200)
     const response = await axios.get("https://api.notion.com/v1/pages/79d0ad742581420cb2f9b6348a5716d7", 
     {
         headers:
@@ -143,6 +144,23 @@ app.post("/fetchPageInfo" , async  (req,res)=>
     })
     //  console.log(response.data)
 })
+
+app.post("/saveNotionPageId", async(req,res)=>
+{
+    try {
+        // console.log(req.body.user)
+         console.log(req.body.pageId)
+      
+        const dbuser = await userModel.find({email : req.body.user.email})
+        console.log(dbuser[0].pageId)
+         await userModel.updateOne({_id : req.body.user._id} , {$push :{pageId : req.body.pageId}})
+        res.status(200)  
+    } catch (error) {
+        console.log(error)
+    }
+  
+})
+
 
 app.listen(port, () => {
     console.log("listening on port " + port)
