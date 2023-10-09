@@ -145,17 +145,43 @@ app.post("/fetchUserInfo" , async  (req,res)=>
     //  console.log(response.data)
 })
 
-app.post("/saveNotionPageId", async(req,res)=>
+app.post("/fetchPageInfo", async(req,res)=>
 {
+
     try {
         // console.log(req.body.user)
-         console.log(req.body.pageId)
-      
-        const dbuser = await userModel.find({email : req.body.user.email})
-        console.log(dbuser[0].pageId)
-         await userModel.updateOne({_id : req.body.user._id} , {$push :{pageId : req.body.pageId}})
+        const pageId = req.body.pageId
+        // console.log(dbuser[0].pageId)
+        // userModel.updateOne({_id : req.body._id} , {$push :{pageId : req.body.pageId}})
+        // console.log(`https://api.notion.com/v1/pages/${pageId}`)
+        const pageResponse = await axios.get(`https://api.notion.com/v1/pages/${pageId}`,
+        {
+            headers:
+            {
+                Authorization : 'Bearer secret_w4femp7hkXOmfmxkWwBHfXPx14lc71ZKatGycd1sCJg',
+                'Notion-Version' : '2022-06-28',
+            }
+        })
+        // console.log(pageResponse.data)
+        const pageObject = {
+            created_time : pageResponse.data.created_time,
+            last_edited_time : pageResponse.data.last_edited_time,
+           parent : pageResponse.data.parent.type,
+           title : pageResponse.data.properties.title.title,
+           url : pageResponse.data.url,
+        };
+
+        const blockResponse = await axios.get(`https://api.notion.com/v1/blocks/${pageId}/children?page_size=100`,
+        {
+            headers:
+            {
+                Authorization : 'Bearer secret_w4femp7hkXOmfmxkWwBHfXPx14lc71ZKatGycd1sCJg',
+            'Notion-Version' : '2022-06-28',
+            }
+        })
+        res.send(blockResponse)
         res.status(200)  
-    } catch (error) {
+    } catch (error) {   
         console.log(error)
     }
   

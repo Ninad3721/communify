@@ -6,7 +6,7 @@ function NotionDbSideBar({user}) {
   const [databaseList, setDatabaseList] = useState([])
 
   return (
-    <div>
+
               <>
             <div className="w-[180px] h-[640px] m-3  bg-[#171717] text-white rounded-lg font-roboto">
             <div className="flex">
@@ -25,11 +25,13 @@ function NotionDbSideBar({user}) {
                             {user.name}
                         </p>
                     </div>
+       
+                    </div>
                 </div>
-            </div>
+            
 
         </>
-    </div>
+   
   )
 }
 

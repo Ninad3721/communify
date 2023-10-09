@@ -23,15 +23,16 @@ export default function PageIdDialogBox({pageIdBox, user}) {
         setPageId(pageId)
         try {
             const res = await axios.post("http://localhost:5000/saveNotionPageId", {
-                user : user,
-                pageId : pageId
+                _id : user._id,
+                pageId : pageId,
+                email: user.email
             })
             console.log(res)
         } catch (error) {
             
         }
     }
-  const handleClose = () => {
+  const handleClose = () => {                  
     setOpen(false);
   };
   return (
