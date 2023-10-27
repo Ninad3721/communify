@@ -15,21 +15,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PageIdDialogBox({pageIdBox, user}) {
+export default function PageIdDialogBox(props) {
+  const  pageIdBox = props.pageIdBox
   const [open, setOpen] = useState({pageIdBox});
   const [pageId, setPageId] = useState('')
     const handleSubmit= async ()=>
     {
-        setPageId(pageId)
+      setPageId(pageId)
         try {
-            const res = await axios.post("http://localhost:5000/saveNotionPageId", {
-                _id : user._id,
+            const res = await axios.post("http://localhost:5000/fetchPageInfo", {
                 pageId : pageId,
-                email: user.email
             })
-            console.log(res)
+            handleClose()
+            await props.handlePageInfo(res.data)
         } catch (error) {
-            
+            console.log(error)
         }
     }
   const handleClose = () => {                  
@@ -49,7 +49,10 @@ export default function PageIdDialogBox({pageIdBox, user}) {
           <DialogContentText id="alert-dialog-slide-description">
             Enter your page Id from Notion app to connect it to communify
           </DialogContentText>
-          <TextField id="outlined-basic" variant="outlined" onChange={(e)=>{setPageId(e.target.value)}}  />
+          <TextField id="outlined-basic" variant="outlined" onChange={(e)=>{
+            const pageId = e.target.value.toString().slice()
+            console.log(pageId)
+            setPageId(e.target.value)}}  />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>

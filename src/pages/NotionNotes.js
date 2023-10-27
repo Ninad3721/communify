@@ -8,11 +8,14 @@ import { useState } from 'react';
 import NotionDbSideBar from '../components/NotionDbSideBar';
 
 import axios from 'axios';
+import NotionPageModule from '../components/NotionPageModule';
+import VideoChatModule from '../VideoChatModule';
 function NotionNotes() {
   const {isAuthenticated, loginWithRedirect, isLoading, user} = useAuth0();
   const [showDialog , setShowDialog] = useState(false);
   const [dbUser, setdbuser] = useState({})
   const [pageIdBox , setPageIdBox] = useState(false)
+  const [pageContentInfo, setPageContentInfo] = useState({})
   // loginWithRedirect()
   console.log(isAuthenticated)
   const pageInfo = async()=>
@@ -45,12 +48,20 @@ function NotionNotes() {
     return <div><HomeSkeleton /></div>;
 }
 
+  const handlePageInfo = (data)=>
+  {
+    console.log(data)
+    setPageContentInfo(data)
+  }
+
   return (
   
     isAuthenticated ?  
-    <div className='flex  bg-[#20232b] h-[100%]'>
+    <div className='flex bg-[#20232b] h-[710px]'>
       <NotionDbSideBar user={user}/>  
-      <PageIdDialogBox pageIdBox={pageIdBox} user={dbUser}/>
+        <NotionPageModule/>
+        <VideoChatModule/>
+      <PageIdDialogBox sendPageInfo = {handlePageInfo} pageIdBox={pageIdBox} user={dbUser}/>
     </div>
     : <UnAuthorized/>
   

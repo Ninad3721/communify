@@ -17,7 +17,7 @@ function JoinScreen({ getMeetingAndToken }) {
         await getMeetingAndToken(meetingId);
     };
     return (
-        <div className="relative top-32 left-72 w-72">
+        <div className="w-72">
             <div>
                 <TextField id="outlined-basic" label="Enter Meeting Id" variant="outlined" placeholder="Enter Meeting Id"
                     onChange={(e) => {
@@ -126,7 +126,7 @@ function MeetingView(props) {
     };
 
     return (
-        <div className="container  relative top-32 left-72 w-72">
+        <div className=" w-72">
             <h3>Meeting Id: {props.meetingId}</h3>
             {joined && joined == "JOINED" ? (
                 <div>

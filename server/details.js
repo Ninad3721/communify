@@ -1,4 +1,4 @@
-import express from "express"
+import express, { response } from "express"
 export const app = express()
 import axios from "axios"
 const port = 5000;
@@ -134,7 +134,7 @@ app.post("/fetchUserInfo" , async  (req,res)=>
     const userInfo = await userModel.find({email: userEmail})
     res.send(userInfo[0])
     res.status(200)
-    const response = await axios.get("https://api.notion.com/v1/pages/79d0ad742581420cb2f9b6348a5716d7", 
+    const response = await axios.get(`https://api.notion.com/v1/pages/79d0ad742581420cb2f9b6348a5716d7`, 
     {
         headers:
         {
@@ -179,7 +179,27 @@ app.post("/fetchPageInfo", async(req,res)=>
             'Notion-Version' : '2022-06-28',
             }
         })
-        res.send(blockResponse)
+        const responseArray = [];
+        blockResponse.data.results.map((obj)=>
+        {
+            if(obj.type != "image" && obj.type != "unsupported" && obj[obj.type].rich_text[0])
+            {
+                responseArray.push(
+                    {
+                       type : obj.type,
+                        content : obj[obj.type].rich_text[0].plain_text,
+                    }
+                )
+            }
+          
+        })  
+        
+         res.send(
+            {
+                pageInfo: pageObject,
+                blocks : responseArray
+            }
+         )
         res.status(200)  
     } catch (error) {   
         console.log(error)
