@@ -1,38 +1,28 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { useState } from 'react';
-import { Input } from '@mui/icons-material';
-import { TextField } from '@mui/material';
-import axios from 'axios';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { useState } from "react";
+import { Input } from "@mui/icons-material";
+import { TextField } from "@mui/material";
+import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function PageIdDialogBox(props) {
-  const  pageIdBox = props.pageIdBox
-  const [open, setOpen] = useState({pageIdBox});
-  const [pageId, setPageId] = useState('')
-    const handleSubmit= async ()=>
-    {
-      setPageId(pageId)
-        try {
-            const res = await axios.post("http://localhost:5000/fetchPageInfo", {
-                pageId : pageId,
-            })
-            handleClose()
-            await props.handlePageInfo(res.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-  const handleClose = () => {                  
+  const pageIdBox = props.pageIdBox;
+  const [open, setOpen] = useState(props.pageIdBox);
+  const [pageId, setPageId] = useState("");
+  const handleSubmit = async () => {
+    await props.sendPageId(pageId);
+  };
+  const handleClose = () => {
     setOpen(false);
   };
   return (
@@ -49,10 +39,14 @@ export default function PageIdDialogBox(props) {
           <DialogContentText id="alert-dialog-slide-description">
             Enter your page Id from Notion app to connect it to communify
           </DialogContentText>
-          <TextField id="outlined-basic" variant="outlined" onChange={(e)=>{
-            const pageId = e.target.value.toString().slice()
-            console.log(pageId)
-            setPageId(e.target.value)}}  />
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            onChange={(e) => {
+              const pageId = e.target.value.toString().slice();
+              setPageId(e.target.value);
+            }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
