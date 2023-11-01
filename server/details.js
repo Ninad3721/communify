@@ -6,8 +6,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import userModel from "./model/user_detail.js";
 import bodyParser from "body-parser";
-import ngrok from "ngrok";
 import "dotenv/config";
+import { Server } from "socket.io";
+import http from "http";
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const server = http.createServer(app);
+
 const connection_config = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -35,6 +38,12 @@ const connection_config = {
 // function async ngorkTunnel() {
 
 // }
+
+const socketIO = new Server(http, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 
 const db_url =
   "mongodb+srv://Ninad:4u2HGF9pHMhZJAQB@cluster0.tbblf5d.mongodb.net/?retryWrites=true&w=majority";
@@ -45,6 +54,13 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
   console.log("Connected to MongoDB Atlas!");
+});
+
+socketIO.on("connection", (socket) => {
+  console.log(`⚡: ${socket.id} user just connected!`);
+  socket.on("disconnect", () => {
+    console.log("🔥: A user disconnected");
+  });
 });
 
 app.post("/details", cors(), (req, res) => {
