@@ -200,11 +200,12 @@ app.post("/fetchPageInfo", async (req, res) => {
         });
       }
     });
-
+    console.log(blockResponse.data);
     res.send({
-      pageInfo: pageObject,
-      blocks: responseArray,
+      // pageInfo: pageObject,
+      // blocks: responseArray,
     });
+
     res.status(200);
   } catch (error) {
     console.log(error);
